@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { loginuserdto } from './dto/login.dto';
 import { PrismaService } from 'src/prisma.service';
 import { PrismaClient } from '@prisma/client';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
@@ -12,10 +13,17 @@ export class UsersService {
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
   }
-  findByEmail (email:string) {
+  findByEmail(email: string) {
     return this.db.user.findUnique({
-      where: {email}
-    })
+      where: { email },
+    });
+  }
+  searchByName(username: string) {
+    return this.db.user.findMany({
+      where: {
+        username,
+      },
+    });
   }
 
   findAll() {

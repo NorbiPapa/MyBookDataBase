@@ -22,6 +22,7 @@ async function main() {
         { statusname: 'Dropped' },
       ],
     });
+    /*
     for (let index = 0; index < 20; index++) {
       await prisma.books.create({
         data: {
@@ -36,6 +37,7 @@ async function main() {
         },
       });
     }
+    */
     await prisma.user.createMany({
       data: [
         {

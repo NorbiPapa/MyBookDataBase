@@ -9,6 +9,8 @@ import {
   Request,
   UseGuards,
   ForbiddenException,
+  Query,
+  Search,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -16,6 +18,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { loginuserdto } from './dto/login.dto';
 import { User } from '@prisma/client';
 import { AuthGuard } from '@nestjs/passport';
+import { query } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -33,6 +36,13 @@ export class UsersController {
       email: user.email,
     };
   }
+
+  
+  @Get('search')
+  searchUsersByUsername(@Query('search') name: string){
+    return this.usersService.searchByName;(name);
+  }
+  
 
   @Get()
   findAll() {
