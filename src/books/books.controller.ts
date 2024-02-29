@@ -1,11 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { PrismaService } from 'src/prisma.service';
 
 @Controller('books')
 export class BooksController {
-  constructor(private readonly booksService: BooksService) {}
+  constructor(
+    private readonly booksService: BooksService,
+    private readonly db: PrismaService,
+  ) {}
 
   @Post()
   create(@Body() createBookDto: CreateBookDto) {
@@ -18,10 +31,16 @@ export class BooksController {
   }
 
   @Get()
-  searchByBookName(@Query('search')search: string) {
-    return this.booksService.searchByBookName(search)
+  searchByBookName(@Query('search') search: string) {
+    return this.booksService.searchByBookName(search);
   }
 
+  @Get('Genre')
+  getByGenre(@Param('Genre') genre: number) {
+    return this.db.books.findMany({
+      where: { genre: genre },
+    });
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
