@@ -25,14 +25,11 @@ export class BooksController {
     return this.booksService.create(createBookDto);
   }
 
-  @Get()
-  findAll() {
-    return this.booksService.findAll();
-  }
-
-  @Get()
-  searchByBookName(@Query('search') search: string) {
-    return this.booksService.searchByBookName(search);
+  @Get('Name')
+  searchByBookName(@Param('Name')name: string){
+    return this.db.books.findMany({
+      where: {bookname:name}
+    })
   }
 
   @Get('Genre')
@@ -44,6 +41,13 @@ export class BooksController {
       },
     });
   }
+  @Get('Author')
+  getByAuthor(@Param('Author') author: string) {
+    return this.db.books.findMany({
+      where: {writer:author}
+    })
+  }
+  
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
