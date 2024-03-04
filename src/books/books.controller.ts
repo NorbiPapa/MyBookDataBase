@@ -36,9 +36,12 @@ export class BooksController {
   }
 
   @Get('Genre')
-  getByGenre(@Param('Genre') genre: number) {
-    return this.db.books.findMany({
-      where: { genre: genre },
+  getByGenre(@Param('Genre') genre: string) {
+    return this.db.genres.findMany({
+      where: { genrename: genre },
+      include: {
+        books: true,
+      },
     });
   }
 

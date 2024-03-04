@@ -22,11 +22,11 @@ async function main() {
         { statusname: 'Dropped' },
       ],
     });
-    /*
+
     for (let index = 0; index < 20; index++) {
       await prisma.books.create({
         data: {
-          bookname: faker.word.words + ' ' + faker.word.words,
+          bookname: faker.word.words() + ' ' + faker.word.words(),
           release: faker.date.anytime(),
           writer: faker.person.fullName(),
           genre: {
@@ -37,7 +37,7 @@ async function main() {
         },
       });
     }
-    */
+
     await prisma.user.createMany({
       data: [
         {
