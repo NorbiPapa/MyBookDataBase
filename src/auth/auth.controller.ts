@@ -2,8 +2,9 @@
 import { loginuserdto } from 'src/users/dto/login.dto';
 import { AuthService } from './auth.service';
 import { UsersService } from 'src/users/users.service';
-import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, Request, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { verify } from 'argon2';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -26,4 +27,13 @@ export class AuthController {
       token: await this.authService.generateTokenFor(user)
     }
   }
+  @Post('logout')
+@UseGuards(AuthGuard('bearer'))
+@HttpCode(204)
+logout(@Request() req) {
+  const token = req.headers.authorization.replace('Bearer ', '');
+  return this.authService.revokeToken(token);
+}
+
+ 
 }

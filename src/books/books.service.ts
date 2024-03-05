@@ -11,13 +11,6 @@ export class BooksService {
     return 'This action adds a new book';
   }
 
-  searchByBookName(name:string) {
-    return this.db.books.findMany({
-      where: {bookname}
-    })
-  }
-
-  
 
   findAll() {
     return `This action returns all books`;

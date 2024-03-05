@@ -34,5 +34,8 @@ export class AuthService {
       where: { id: tokenObj.userId }
     })
   }
+  async revokeToken(token: string) {
+    return await this.db.token.delete({where: {token}});
+}
 }
 

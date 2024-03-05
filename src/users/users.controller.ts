@@ -42,7 +42,6 @@ export class UsersController {
   searchUsersByUsername(@Query('search') name: string){
     return this.usersService.searchByName;(name);
   }
-  
 
   @Get()
   findAll() {

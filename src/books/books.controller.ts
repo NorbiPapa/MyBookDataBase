@@ -26,10 +26,10 @@ export class BooksController {
   }
 
   @Get('Name')
-  searchByBookName(@Param('Name')name: string){
+  searchByBookName(@Param('Name') name: string) {
     return this.db.books.findMany({
-      where: {bookname:name}
-    })
+      where: { bookname: name },
+    });
   }
 
   @Get('Genre')
@@ -44,10 +44,9 @@ export class BooksController {
   @Get('Author')
   getByAuthor(@Param('Author') author: string) {
     return this.db.books.findMany({
-      where: {writer:author}
-    })
+      where: { writer: author },
+    });
   }
-  
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
