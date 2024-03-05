@@ -11,7 +11,13 @@ export class UsersService {
   constructor(private readonly db: PrismaService) {}
 
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    return this.db.user.create({
+      data: {
+        email: createUserDto.email,
+        username: createUserDto.username,
+        password: createUserDto.password
+      }
+    });
   }
   findByEmail(email: string) {
     return this.db.user.findUnique({

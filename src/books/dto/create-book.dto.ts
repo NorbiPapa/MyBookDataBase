@@ -1,15 +1,18 @@
-import {IsDateString, IsNotEmpty, Min, } from 'class-validator';
+import { IsDateString, IsNotEmpty, Min } from 'class-validator';
 
 export class CreateBookDto {
-    @IsNotEmpty()
-    @IsDateString()
-    release: Date;
+  @IsNotEmpty()
+  @IsDateString()
+  release: string;
 
-    @IsNotEmpty()
-    @Min(5)
-    writer: String;
+  @IsNotEmpty()
+  @Min(5)
+  writer: string;
 
-    @IsNotEmpty()
-    @Min(5)
-    bookname: String;
+  @IsNotEmpty()
+  @Min(5)
+  bookname: string;
+
+  @IsNotEmpty()
+  genre: string;
 }

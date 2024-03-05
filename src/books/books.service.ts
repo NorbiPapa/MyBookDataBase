@@ -8,9 +8,24 @@ export class BooksService {
   constructor(private readonly db: PrismaService) {}
 
   create(createBookDto: CreateBookDto) {
-    return 'This action adds a new book';
+    return this.db.books.create({
+      data: {
+        bookname: createBookDto.bookname,
+        writer: createBookDto.writer,
+        release: createBookDto.release,
+        genre: {
+          connectOrCreate: {
+            where: {
+              genrename: createBookDto.genre,
+            },
+            create: {
+              genrename: createBookDto.genre
+            },
+          },
+        },
+      },
+    });
   }
-
 
   findAll() {
     return `This action returns all books`;
