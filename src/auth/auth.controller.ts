@@ -5,6 +5,7 @@ import { UsersService } from 'src/users/users.service';
 import { Body, Controller, HttpCode, Post, Request, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { verify } from 'argon2';
 import { AuthGuard } from '@nestjs/passport';
+import { User } from 'src/users/entities/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -31,7 +32,8 @@ export class AuthController {
 @UseGuards(AuthGuard('bearer'))
 @HttpCode(204)
 logout(@Request() req) {
-  const token = req.headers.authorization.replace('Bearer ', '');
+  //const token = req.headers.authorization.replace('Bearer ', '');
+  const token=req.user.token;
   return this.authService.revokeToken(token);
 }
 
