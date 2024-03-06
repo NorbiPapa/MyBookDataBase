@@ -31,7 +31,7 @@ model Books {
 
 model Genres {
   id        Int     @id @default(autoincrement())
-  genrename String @unique
+  genrename String  @unique
   books     Books[]
 }
 
@@ -56,4 +56,6 @@ model UserBook {
   user     User   @relation(fields: [userid], references: [id])
   userid   Int
   score    Int
+
+  @@unique([userid, bookid ])
 }

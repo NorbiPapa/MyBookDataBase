@@ -7,11 +7,15 @@ import {
   Param,
   Delete,
   Query,
+  Put,
+  Request,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { PrismaService } from 'src/prisma.service';
+import { SetBookStatusDto } from './dto/setbookstatus.dto';
+import { User } from '@prisma/client';
 
 @Controller('books')
 export class BooksController {
@@ -25,14 +29,14 @@ export class BooksController {
     return this.booksService.create(createBookDto);
   }
 
-  @Get('Name')
+  @Get('searchName/:Name')
   searchByBookName(@Param('Name') name: string) {
     return this.db.books.findMany({
       where: { bookname: name },
     });
   }
 
-  @Get('Genre')
+  @Get('searchGenre/:Genre')
   getByGenre(@Param('Genre') genre: string) {
     return this.db.genres.findMany({
       where: { genrename: genre },
@@ -47,6 +51,7 @@ export class BooksController {
       where: { writer: author },
     });
   }
+  
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
@@ -56,5 +61,38 @@ export class BooksController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.booksService.remove(+id);
+  }
+
+  @Put(':id/status')
+  library(@Param('id')id: string, @Body() setbookstatusdto:SetBookStatusDto, @Request() req ){
+    
+    const user: User =req.user; 
+    this.db.userBook.upsert({
+      where: {
+        userid_bookid: {
+          userid: user.id,
+          bookid: parseInt(id)
+        }
+      },
+      create: {
+        userid: user.id,
+        bookid: parseInt(id),
+        score: setbookstatusdto.score,
+        statusid: setbookstatusdto.status
+      },
+      update: {
+        statusid: setbookstatusdto.status,
+        score: setbookstatusdto.score
+      }
+    })
+  }
+
+  @Get('SearchUserBook/:id')
+  searchUserBook(@Param('id')id: string){
+    return this.db.userBook.findMany({
+      where:{
+        userid: parseInt(id)
+      }
+    })
   }
 }
