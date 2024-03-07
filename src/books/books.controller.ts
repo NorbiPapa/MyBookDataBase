@@ -45,7 +45,7 @@ export class BooksController {
       },
     });
   }
-  @Get('Author')
+  @Get(':Author')
   getByAuthor(@Param('Author') author: string) {
     return this.db.books.findMany({
       where: { writer: author },
