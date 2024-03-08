@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { PrismaService } from 'src/prisma.service';
+import { th } from '@faker-js/faker';
+import { Book } from './entities/book.entity';
 
 @Injectable()
 export class BooksService {
@@ -27,19 +29,34 @@ export class BooksService {
     });
   }
 
-  findAll() {
-    return `This action returns all books`;
-  }
-
-  findOne(id: string) {
-    return `This action returns a #${id} book`;
-  }
-
   update(id: number, updateBookDto: UpdateBookDto) {
-    return `This action updates a #${id} book`;
+    return this.db.books.update({
+      where: {
+        id: id
+      },
+      data: {
+        bookname: updateBookDto.bookname,
+        writer: updateBookDto.writer,
+        release: updateBookDto.release,
+        genre: {
+          connectOrCreate: {
+            where: {
+              genrename: updateBookDto.genre,
+            },
+            create: {
+              genrename: updateBookDto.genre
+            },
+          },
+        },
+      }
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} book`;
+    return this.db.books.delete({
+      where: {
+        id: id
+      }
+    });
   }
 }

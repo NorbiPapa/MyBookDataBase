@@ -15,8 +15,9 @@ export class UsersService {
       data: {
         email: createUserDto.email,
         username: createUserDto.username,
-        password: createUserDto.password
-      }
+        password: createUserDto.password,
+        role: createUserDto.role,
+      },
     });
   }
   findByEmail(email: string) {
@@ -25,27 +26,34 @@ export class UsersService {
     });
   }
   searchByName(username: string) {
-    return this.db.user.findMany({
+    return this.db.user.findFirst({
       where: {
-        username,
+        username: username
       },
     });
   }
 
-  findAll() {
-    return `This action returns all users`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    return this.db.user.update({
+      where: {
+        id:id
+      },
+      data: {
+        email: updateUserDto.email,
+        username: updateUserDto.username,
+        password: updateUserDto.password,
+        role: updateUserDto.role,
+      }
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.db.user.delete({
+      where: {
+        id:id
+      }
+    });
   }
   login(loginuserdto: loginuserdto) {
     return '';

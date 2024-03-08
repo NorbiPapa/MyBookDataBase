@@ -24,7 +24,7 @@ export class BooksController {
     private readonly db: PrismaService,
   ) {}
 
-  @Post()
+  @Post(':Bookname')
   create(@Body() createBookDto: CreateBookDto) {
     return this.booksService.create(createBookDto);
   }

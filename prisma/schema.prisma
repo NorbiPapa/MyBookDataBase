@@ -23,7 +23,7 @@ model User {
 model Books {
   id       Int        @id @default(autoincrement())
   bookname String
-  release  DateTime
+  release  Int
   writer   String
   genre    Genres[]
   userbook UserBook[]
