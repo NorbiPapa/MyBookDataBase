@@ -7,3 +7,6 @@ npm install @faker-js/faker --save-dev
 npm install argon2
 npm install --save @nestjs/passport passport passport-local
 npm install --save-dev @types/passport-local
+npm install --save @nestjs/swagger
+
+swagger
