@@ -16,6 +16,8 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { PrismaService } from 'src/prisma.service';
 import { SetBookStatusDto } from './dto/setbookstatus.dto';
 import { User } from '@prisma/client';
+import { contains } from 'class-validator';
+import { writer } from 'repl';
 
 @Controller('books')
 export class BooksController {
@@ -24,7 +26,7 @@ export class BooksController {
     private readonly db: PrismaService,
   ) {}
 
-  @Post()
+  @Post(':Bookname')
   create(@Body() createBookDto: CreateBookDto) {
     return this.booksService.create(createBookDto);
   }
@@ -48,7 +50,9 @@ export class BooksController {
   @Get(':Author')
   getByAuthor(@Param('Author') author: string) {
     return this.db.books.findMany({
-      where: { writer: author },
+      where: { writer: {
+        contains: author
+      } },
     });
   }
   

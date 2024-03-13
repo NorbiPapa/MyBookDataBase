@@ -39,20 +39,12 @@ export class UsersController {
   }
 
   
-  @Get('search')
-  searchUsersByUsername(@Query('search') name: string){
+  @Get(':name')
+  searchUsersByUsername(@Param('name') name: string){
     return this.usersService.searchByName;(name);
   }
 
-  @Get()
-  findAll() {
-    return this.usersService.findAll();
-  }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
-  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {

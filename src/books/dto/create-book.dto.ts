@@ -2,15 +2,12 @@ import { IsDateString, IsNotEmpty, Min } from 'class-validator';
 
 export class CreateBookDto {
   @IsNotEmpty()
-  @IsDateString()
-  release: string;
+  release: number;
 
   @IsNotEmpty()
-  @Min(5)
   writer: string;
 
   @IsNotEmpty()
-  @Min(5)
   bookname: string;
 
   @IsNotEmpty()
