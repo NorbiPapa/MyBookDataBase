@@ -24,10 +24,6 @@ import { query } from 'express';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post('Register')
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
   @Get('me')
   @UseGuards(AuthGuard('bearer'))
   me(@Request() req) {
@@ -35,6 +31,11 @@ export class UsersController {
     return {
       email: user.email,
     };
+  }
+  
+  @Post('Register')
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto);
   }
 
   
