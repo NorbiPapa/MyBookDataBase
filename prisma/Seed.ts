@@ -1,6 +1,6 @@
 import { PrismaClient, Books, Genres } from '@prisma/client';
 const prisma = new PrismaClient();
-import { Faker, faker } from '@faker-js/faker';
+
 
 async function main() {
   try {

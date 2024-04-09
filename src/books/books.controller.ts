@@ -57,8 +57,8 @@ export class BooksController {
   @ApiNotFoundResponse({
     description: 'There is no book with this name'
   })
-  @Get('SearchName/:Name')
-  SearchAll(@Param('Name')name: string){
+  @Get('SearchName')
+  SearchAll(@Param('')name: string){
     return this.booksService.SearchAll(name);
   }
 

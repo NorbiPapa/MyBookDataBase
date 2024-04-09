@@ -1,73 +1,112 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Dokumentáció
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Telepítő lista
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+### Prismával való adatbázis kezeléshezhez
 
-## Description
+```sh
+npx prisma
+```
+### Nestjs install
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
+```sh
+npm i -g @nestjs/cli
 ```
 
-## Running the app
+### Belépéshez és regisztrációhoz szükséges telepítések
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```sh
+nest g module auth
 ```
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```sh
+nest g service auth
 ```
 
-## Support
+```sh
+nest g controller auth
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```sh
+npm install argon2
+```
 
-## Stay in touch
+```sh
+npm install --save @nestjs/passport passport passport-local
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```sh
+npm install --save-dev @types/passport-local
+```
 
-## License
+```sh
+npm i passport-http-bearer
+```
 
-Nest is [MIT licensed](LICENSE).
+### Dokumentációhoz szükséges telepítés
+
+```sh
+npm install --save @nestjs/swagger
+```
+## Adatmodell
+
+### User tábla
+
+A tábla a felhasználokat adja meg. Kapcsolatban van a **UserBook** táblával ami a személyes könyvtárat jelképezi.
+Ezen kívül csatlakozik a **Token** táblához, ami a belépéshez kell.
+
+| Adatnév | Adatfajta | Csatlakozás | Leírás |
+| ----------- | ----------- |  ----------- | ----------- |
+| Id | Int | UserBook, Token | Felhasználó id-ja ami alapján azonosítani lehet |
+| Username | String | ----------- | A felhasználó neve ami nem egyed |
+| Email | String | ----------- | A felhasználó emailje ami egyedi |
+| Password | String | ----------- | A felhasználó jelszava |
+| Role | String | ----------- | A felhasználó engedélye, alapból sima felhasználó |
+
+### Books tábla
+
+A tábla a könyv és annak adatait alkotja meg. A könyvek csatlakoznak a **BookstoGenres** táblához, ami több a több kapcsolattal egy könyvhöz több műfajt is rakhat. Csatlakozik a **UserBook** táblához így lehetővé teszi, a személyes könytvár létrehozásását.
+
+| Adatnév | Adatfajta | Csatlakozás | Leírás |
+| ----------- | ----------- |  ----------- | ----------- |
+| Id | Int | UserBook, BookstoGenres | A könyveket csatolja a felhasználó könyvtárhoz, és több a több kapcsolattal a műfajokhoz |
+| Book name | String | ----------- | A könyv neve ami nem egyedi |
+| Writer | String | ----------- | A könyv írója ami nem egyedi
+| Release date | Number | ----------- | A könyv kiadási éve |
+
+### BookstoGenres tábla
+
+A csatlakozó tábla, amit lehetővé teszi a több a több kapcsolatot a könyvek és műfajok között.
+
+| Adatnév | Adatfajta | Csatlakozás | Leírás |
+| ----------- | ----------- |  ----------- | ----------- | 
+| BookId | Int | Books | Össze köti id alapján a könyvekkel |
+| GenreId | Int | Genre | Össze köti id alapján a műfajokkal |
+
+
+### Token tábla
+
+A token tábla lehetővé teszi a belépést.
+
+| Adatnév | Adatfajta | Csatlakozás | Leírás |
+| ----------- | ----------- |  ----------- | ----------- |
+| Token | String | ----------- | Token id-ja ami egy string, belépéskor megkapja a felhasználó |
+| UserId | Int | User | A felhasználókkal való kapcsolatot teszi lehetővé |
+
+### Status tábla
+
+| Adatnév | Adatfajta | Csatlakozás | 
+| ----------- | ----------- |  ----------- |
+| Status Name | String |
+| UserBook | Csatlakozás | UserBook |
+
+### UserBook tábla
+
+| Adatnév | Adatfajta | Csatlakozás |
+| ----------- | ----------- |  ----------- |
+| id | Int |
+| StatusId | Int | Status |
+| BookId | Int | Book |
+| UserId | Int | User |
+| Score | Int | 
+
