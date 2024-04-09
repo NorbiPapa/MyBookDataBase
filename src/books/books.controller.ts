@@ -58,9 +58,9 @@ export class BooksController {
     description: 'There is no book with this name'
   })
   @Get('SearchName')
-  SearchAll(@Param('')name: string){
-    return this.booksService.SearchAll(name);
-  }
+  SearchAll(){
+    return this.booksService.SearchAll();
+  }a
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
