@@ -31,31 +31,10 @@ export class BooksController {
     return this.booksService.create(createBookDto);
   }
 
-  @Get('searchName/:Name')
-  searchByBookName(@Param('Name') name: string) {
-    return this.db.books.findMany({
-      where: { bookname: name },
-    });
+  @Get('SearchName/:Name')
+  SearchAll(@Param('Name')name: string){
+    return this.booksService.SearchAll(name);
   }
-
-  @Get('searchGenre/:Genre')
-  getByGenre(@Param('Genre') genre: string) {
-    return this.db.genres.findMany({
-      where: { genrename: genre },
-      include: {
-        books: true,
-      },
-    });
-  }
-  @Get(':Author')
-  getByAuthor(@Param('Author') author: string) {
-    return this.db.books.findMany({
-      where: { writer: {
-        contains: author
-      } },
-    });
-  }
-  
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
@@ -93,10 +72,6 @@ export class BooksController {
 
   @Get('SearchUserBook/:id')
   searchUserBook(@Param('id')id: string){
-    return this.db.userBook.findMany({
-      where:{
-        userid: parseInt(id)
-      }
-    })
+    return this.booksService.searchUserBook
   }
 }

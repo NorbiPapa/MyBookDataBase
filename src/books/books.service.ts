@@ -59,4 +59,22 @@ export class BooksService {
       }
     });
   }
+
+  SearchAll(name: string){
+    return this.db.books.findMany({
+      where: { bookname: {
+        contains: name
+      }}
+    })
+  }
+
+  searchUserBook(id: string){
+    return this.db.userBook.findMany({
+      where:{
+        userid: parseInt(id)
+      }
+    })
+  }
 }
+
+

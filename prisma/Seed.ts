@@ -7,32 +7,32 @@ async function main() {
     await prisma.genres.createMany({
       data: [
         { genrename: 'Fantasy' },
-        { genrename: 'Romance' },
+        { genrename: 'Romantikus' },
         { genrename: 'Horror' },
-        { genrename: 'Crime' },
-        { genrename: 'Comedy' },
-        { genrename: 'Realism' },
-        { genrename: 'Adventure' },
-        { genrename: 'Philosophy' },
+        { genrename: 'Krimi' },
+        { genrename: 'Komédia' },
+        { genrename: 'Realizmus' },
+        { genrename: 'Kaland' },
+        { genrename: 'Filozófia' },
         { genrename: 'Sci-fi' },
-        { genrename: 'History' },
-        { genrename: 'Literature' },
-        { genrename: 'Biography' },
-        { genrename: 'Fable' },
-        { genrename: 'Short Story' },
-        { genrename: 'Poem' },
-        { genrename: 'Tragedy' },
-        { genrename: 'Existentialism' },
-        {genrename: 'Absurdism'},
+        { genrename: 'Történelem' },
+        { genrename: 'Szép Irodalom' },
+        { genrename: 'Életrajz' },
+        { genrename: 'Mese' },
+        { genrename: 'Novella' },
+        { genrename: 'Vers' },
+        { genrename: 'Tragédia' },
+        { genrename: 'Egzisztencializmus' },
+        {genrename: 'Abszurdizmus'},
       ],
     });
     await prisma.status.createMany({
       data: [
-        { statusname: 'Plan to read' },
-        { statusname: 'Completed' },
-        { statusname: 'Reading' },
-        { statusname: 'On Hold' },
-        { statusname: 'Dropped' },
+        { statusname: 'Tervben van' },
+        { statusname: 'Kiolvasva' },
+        { statusname: 'Most olvasom' },
+        { statusname: 'Szüneteltetem' },
+        { statusname: 'Abbahagytam' },
       ],
     });
     await prisma.books.create({
@@ -41,7 +41,7 @@ async function main() {
         writer: 'Fjodor Mihajlovics Dosztojevszkij',
         release: 1866,
         genre: {
-          connect: { genrename: 'Realism' },
+          connect: { genrename: 'Realizmus' },
         },
       },
     });
@@ -51,7 +51,7 @@ async function main() {
         writer: 'Fjodor Mihajlovics Dosztojevszkij',
         release: 1848,
         genre: {
-          connect: { genrename: 'Romance' },
+          connect: { genrename: 'Romantikus' },
         },
       },
     });
@@ -61,7 +61,7 @@ async function main() {
         writer: 'Fjodor Mihajlovics Dosztojevszkij',
         release: 1872,
         genre: {
-          connect: { genrename: 'Realism' },
+          connect: { genrename: 'Realizmus' },
         },
       },
     });
@@ -71,7 +71,7 @@ async function main() {
         writer: 'Fjodor Mihajlovics Dosztojevszkij',
         release: 1880,
         genre: {
-          connect: { genrename: 'Realism' },
+          connect: { genrename: 'Realizmus' },
         },
       },
     });
@@ -81,7 +81,7 @@ async function main() {
         writer: 'Fjodor Mihajlovics Dosztojevszkij',
         release: 1866,
         genre: {
-          connect: { genrename: 'Realism' },
+          connect: { genrename: 'Realizmus' },
         },
       },
     });
@@ -91,7 +91,7 @@ async function main() {
         writer: 'Fjodor Mihajlovics Dosztojevszkij',
         release: 1864,
         genre: {
-          connect: { genrename: 'Realism' },
+          connect: { genrename: 'Realizmus' },
         },
       },
     });
@@ -101,7 +101,7 @@ async function main() {
         writer: 'Albert Camus',
         release: 1942,
         genre: {
-          connect: { genrename: 'Existentialism' },
+          connect: { genrename: 'Egzisztencializmus' },
         },
       },
     });
@@ -111,7 +111,7 @@ async function main() {
         writer: 'Albert Camus',
         release: 1947,
         genre: {
-          connect: { genrename: 'Existentialism' },
+          connect: { genrename: 'Egzisztencializmus' },
         },
       },
     });
@@ -121,7 +121,7 @@ async function main() {
         writer: 'Albert Camus',
         release: 1942,
         genre: {
-          connect: { genrename: 'Absurdism' },
+          connect: { genrename: 'Abszurdizmus' },
         },
       },
     });

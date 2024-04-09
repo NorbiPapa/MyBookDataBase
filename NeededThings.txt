@@ -8,3 +8,4 @@ npm install argon2
 npm install --save @nestjs/passport passport passport-local
 npm install --save-dev @types/passport-local
 npm i passport-http-bearer
+npm install --save @nestjs/swagger
