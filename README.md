@@ -95,18 +95,22 @@ A token tábla lehetővé teszi a belépést.
 
 ### Status tábla
 
-| Adatnév | Adatfajta | Csatlakozás | 
-| ----------- | ----------- |  ----------- |
-| Status Name | String |
-| UserBook | Csatlakozás | UserBook |
+A **Userbook** táblában a megadott könyvekhez státuszt ad.
+
+| Adatnév | Adatfajta | Csatlakozás | Leírás |
+| ----------- | ----------- |  ----------- | ----------- |
+| Status Id | int | UserBook | Ez adja meg az adott könyvnek a státuszát |
+| Genre Name | String | ----------- | A műfaj neve | 
 
 ### UserBook tábla
 
-| Adatnév | Adatfajta | Csatlakozás |
-| ----------- | ----------- |  ----------- |
-| id | Int |
-| StatusId | Int | Status |
-| BookId | Int | Book |
-| UserId | Int | User |
-| Score | Int | 
+Ez a tábla adja meg mindenkinek a saját könyvtárát, értékeléssel, státusszal.
+
+| Adatnév | Adatfajta | Csatlakozás | Leírás |
+| ----------- | ----------- |  ----------- | ----------- |
+| id | Int | ----------- | A könyvtárnak az idja ami alapján megtaláljuk |
+| StatusId | Int | Status | A státuszokat adja meg adott könyveknek |
+| BookId | Int | Book | A könyveket adja meg a könyvtárba |
+| UserId | Int | User | Megadja, hogy melyik felhasználóé a könyvtár |
+| Score | Int | ----------- | A könyv értékelése egy 1-10 skálán | 
 
