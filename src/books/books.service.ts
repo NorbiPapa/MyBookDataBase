@@ -60,12 +60,8 @@ export class BooksService {
     });
   }
 
-  SearchAll(name: string){
-    return this.db.books.findMany({
-      where: { bookname: {
-        contains: name
-      }}
-    })
+  SearchAll(){
+    return this.db.books.findMany()
   }
 
   searchUserBook(id: string){
