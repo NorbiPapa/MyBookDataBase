@@ -60,7 +60,11 @@ export class BooksController {
   @Get('SearchName')
   SearchAll(){
     return this.booksService.SearchAll();
-  }a
+  }
+  @Post(':Author')
+  getByAuthor(@Param('Author') author: string) {
+    return this.booksService.getbyAuthor(author);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {

@@ -63,6 +63,13 @@ export class BooksService {
   SearchAll(){
     return this.db.books.findMany()
   }
+  getbyAuthor(author: string){
+    return this.db.books.findMany({
+      where: { writer: {
+        contains: author
+      } },
+    });
+  }
 
   searchUserBook(id: string){
     return this.db.userBook.findMany({
