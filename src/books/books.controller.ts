@@ -29,43 +29,43 @@ import { Book } from './entities/book.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { tr } from '@faker-js/faker';
 
-@ApiTags('Api of the books')
+@ApiTags('A könyvek api-ja')
 @Controller('books')
 export class BooksController {
   constructor(
     private readonly booksService: BooksService,
     private readonly db: PrismaService,
   ) {}
-
+  
   /**
-   * Creates a new user
+   * Új könyvet alkot
    *
    * @param CreateBookDto
    * @returns
    */
   @Post(':Bookname')
   @ApiCreatedResponse({
-    description: 'Succesful product creation',
+    description: 'Sikeres lekérdezés',
     type: Book,
   })
   @ApiBadRequestResponse({
-    description: 'An error occured',
+    description: 'Hiba történt',
   })
   create(@Body() createBookDto: CreateBookDto) {
     return this.booksService.create(createBookDto);
   }
 
   @ApiParam({
-    name: 'Book Name',
-    description: 'The name of the book',
+    name: 'Könyv címe',
+    description: 'A címe a könyvnek, az adat nem egyedi',
     type: String,
   })
   @ApiOkResponse({
-    description: 'Returns the details of the book',
+    description: 'A könyvek adatait adja vissza',
     type: Book,
   })
   @ApiNotFoundResponse({
-    description: 'There is no book with this name',
+    description: 'Nem talál ilyet',
   })
   @Get('SearchName')
   SearchAll() {
@@ -88,10 +88,10 @@ export class BooksController {
 
   @ApiParam({
     name: 'id',
-    description: 'The ID of the User library',
+    description: 'Az ID-ja egy személyes könyvtárnak',
   })
   @ApiOkResponse({
-    description: 'Puts the book in the library',
+    description: 'Megadott könyvet könyvtárba adja.',
     type: Book,
   })
   @Put(':id/status')
@@ -120,6 +120,11 @@ export class BooksController {
     });
   }
 
+ 
+  @ApiOkResponse({
+    description: 'Ki adja a bejelentkezett felhasználó egész könyvtárát',
+    type: Book,
+  })
   @Get('SearchUserBook/')
   @UseGuards(AuthGuard('bearer'))
   searchUserBook(@Request() req) {
@@ -134,4 +139,27 @@ export class BooksController {
       },
     });
   }
+
+  @ApiOkResponse({
+    description: 'Ki adja a bejelentkezett user egész könyvtárát',
+    type: Book,
+  })
+  @Get('SearchBacklog/')
+  @UseGuards(AuthGuard('bearer'))
+  searchBacklog(@Request() req) {
+    const user: User = req.user;
+    return this.db.userBook.findMany({
+      where: {
+        userid: user.id,
+        statusid: 1
+        },
+      include: {
+        status: true,
+        book: true,
+      },
+    });
+  }
 }
+
+
+
