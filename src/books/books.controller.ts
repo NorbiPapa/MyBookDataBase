@@ -27,6 +27,7 @@ import {
 } from '@nestjs/swagger';
 import { Book } from './entities/book.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { tr } from '@faker-js/faker';
 
 @ApiTags('Api of the books')
 @Controller('books')
@@ -119,8 +120,18 @@ export class BooksController {
     });
   }
 
-  @Get('SearchUserBook/:id')
-  searchUserBook(@Param('id') id: string) {
-    return this.booksService.searchUserBook;
+  @Get('SearchUserBook/')
+  @UseGuards(AuthGuard('bearer'))
+  searchUserBook(@Request() req) {
+    const user: User = req.user;
+    return this.db.userBook.findMany({
+      where: {
+        userid: user.id,
+      },
+      include: {
+        status: true,
+        book: true,
+      },
+    });
   }
 }
