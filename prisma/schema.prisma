@@ -55,7 +55,6 @@ model UserBook {
   bookid   Int
   user     User   @relation(fields: [userid], references: [id])
   userid   Int
-  score    Int
 
   @@unique([userid, bookid ])
 }

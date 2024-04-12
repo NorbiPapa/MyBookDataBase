@@ -112,5 +112,7 @@ Ez a tábla adja meg mindenkinek a saját könyvtárát, értékeléssel, státu
 | StatusId | Int | Status | A státuszokat adja meg adott könyveknek |
 | BookId | Int | Book | A könyveket adja meg a könyvtárba |
 | UserId | Int | User | Megadja, hogy melyik felhasználóé a könyvtár |
-| Score | Int | ----------- | A könyv értékelése egy 1-10 skálán | 
+
+
+![Az adat tábla képe](public/database.png)
 
