@@ -94,7 +94,7 @@ export class BooksController {
     description: 'Megadott könyvet könyvtárba adja.',
     type: Book,
   })
-  @Put(':id/status')
+  @Post('/Status/:id')
   @UseGuards(AuthGuard('bearer'))
   library(
     @Param('id') id: string,
