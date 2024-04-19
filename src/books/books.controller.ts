@@ -71,16 +71,46 @@ export class BooksController {
   SearchAll() {
     return this.booksService.SearchAll();
   }
+  @ApiParam({
+    name: 'Könyv Írója',
+    description: 'A író alapú könyvkeresés miatti, írót váró',
+    type: String,
+  })
+  @ApiOkResponse({
+    description: 'Az író alapú keresés sikeres',
+    type: Book,
+  })
+  @ApiNotFoundResponse({
+    description: 'Nincs ilyer író',
+  })
   @Post('Author/:Author')
   getByAuthor(@Param('Author') author: string) {
     return this.booksService.getbyAuthor(author);
   }
 
+  @ApiParam({
+    name: 'Könyv Id-ja',
+    description: 'A könyv frissítéséhez kellő Könyv id',
+    type: String,
+  })
+  @ApiOkResponse({
+    description: 'Sikeres frissítés',
+    type: Book,
+  })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
     return this.booksService.update(+id, updateBookDto);
   }
 
+  @ApiParam({
+    name: 'Könyv Id-ja',
+    description: 'A könyv törléshez kellő Könyv id',
+    type: String,
+  })
+  @ApiOkResponse({
+    description: 'Sikeres törlés',
+    type: Book,
+  })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.booksService.remove(+id);
